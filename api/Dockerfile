@@ -1,18 +1,19 @@
 # use node 11.8
 FROM node:11.8-alpine
 
-# use the non-root user provided by the node image
-USER node
-
 # change working directory
 WORKDIR /usr/src/app
 
 # install dependencies
-COPY package*.json .
+COPY package*.json ./
 RUN npm install
 
 # copy app
-COPY . .
+COPY ./ ./
 
-# expose the node app to the world
+# use the non-root user provided by the node image
+USER node
+
+# start the node app
 EXPOSE 3000
+CMD ["node", "index.js"]
