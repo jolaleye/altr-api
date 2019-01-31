@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "altr-api",
+  "author": "Jonathan Olaleye",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "koa": "^2.7.0"
+  }
+}
