@@ -7,6 +7,10 @@
     "start": "nodemon index.js"
   },
   "dependencies": {
-    "koa": "^2.7.0"
+    "fs-extra": "^7.0.1",
+    "koa": "^2.7.0",
+    "koa-body": "^4.0.7",
+    "koa-router": "^7.4.0",
+    "shortid": "^2.2.14"
   }
 }
