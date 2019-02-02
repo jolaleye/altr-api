@@ -14,6 +14,12 @@ COPY ./ ./
 # use the non-root user provided by the node image
 USER node
 
+# configure global npm install
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH="/home/node/.npm-global/bin:${PATH}"
+
+RUN npm install -g pm2
+
 # start the node app
 EXPOSE 3000
-CMD ["node", "index.js"]
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]
