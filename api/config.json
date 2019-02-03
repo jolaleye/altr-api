@@ -3,6 +3,10 @@
     "image": {
       "in": ["jpeg", "jpg", "png"],
       "out": ["jpeg", "jpg", "png"]
+    },
+    "video": {
+      "in": ["mp4", "mov"],
+      "out": ["mp4", "mov"]
     }
   }
 }
