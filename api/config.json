@@ -1,0 +1,8 @@
+{
+  "formats": {
+    "image": {
+      "in": ["jpeg", "jpg", "png"],
+      "out": ["jpeg", "jpg", "png"]
+    }
+  }
+}
