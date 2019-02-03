@@ -17,6 +17,8 @@ class Image {
 
     // convert format
     if (this.options.format) output.toFormat(this.options.format);
+    // resize
+    output.resize(parseInt(this.options.width), parseInt(this.options.height), { fit: 'fill' });
 
     await output.toFile(outputPath);
     return outputPath;
