@@ -1,7 +1,9 @@
 # use node 11.8
 FROM node:11.8-alpine
 
-# change working directory
+# install OptiPNG
+RUN apk add optipng
+
 WORKDIR /usr/src/app
 
 # install dependencies
@@ -12,6 +14,7 @@ RUN npm install
 COPY ./ ./
 
 # use the non-root user provided by the node image
+RUN chown -R node ./
 USER node
 
 # configure global npm install
