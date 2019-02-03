@@ -42,6 +42,7 @@ router.post('/upload', async ctx => {
   else {
     ctx.response.status = 422;
     ctx.response.message = 'Invalid input format';
+    fs.remove(upload.path);
     return;
   }
 
@@ -50,6 +51,7 @@ router.post('/upload', async ctx => {
   if (errors.length) {
     ctx.response.status = 422;
     ctx.response.body = errors;
+    fs.remove(upload.path);
     return;
   }
 
