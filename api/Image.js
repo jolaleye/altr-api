@@ -19,6 +19,10 @@ class Image {
     if (this.options.format) output.toFormat(this.options.format);
     // resize
     output.resize(parseInt(this.options.width), parseInt(this.options.height), { fit: 'fill' });
+    // adjust quality (jpg)
+    if ((outputFormat === 'jpg' || outputFormat === 'jpeg') && this.options.quality) {
+      output.jpeg({ quality: parseInt(this.options.quality) });
+    }
 
     await output.toFile(outputPath);
     return outputPath;
@@ -27,8 +31,15 @@ class Image {
   validate() {
     const errors = [];
 
-    if (this.options.format && !_.formats.image.out.includes(this.options.format)) errors.push('Invalid output format');
-    if (!this.options.width || !this.options.height) errors.push('Missing image dimensions');
+    if (this.options.format && !_.formats.image.out.includes(this.options.format)) {
+      errors.push('Invalid output format');
+    }
+    if (!this.options.width || !this.options.height) {
+      errors.push('Missing image dimensions');
+    }
+    if (this.options.quality && (this.options.quality < 1 || this.options.quality > 100)) {
+      errors.push('Quality must be 1-100');
+    }
 
     return errors;
   }
