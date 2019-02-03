@@ -1,8 +1,8 @@
 # use node 11.8
 FROM node:11.8-alpine
 
-# install OptiPNG
-RUN apk add optipng
+# install OptiPNG & FFmpeg
+RUN apk add optipng ffmpeg
 
 WORKDIR /usr/src/app
 
