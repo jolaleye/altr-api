@@ -11,9 +11,13 @@ class Image {
   }
 
   async process() {
+    const outputFormat = this.options.format || path.extname(this.file.name).slice(1);
+    const outputPath = path.join(path.dirname(this.file.path), `${shortid.generate()}.${outputFormat}`);
     const output = sharp(this.file.path);
 
-    const outputPath = path.join(path.dirname(this.file.path), `${shortid.generate()}${path.extname(this.file.name)}`);
+    // convert format
+    if (this.options.format) output.toFormat(this.options.format);
+
     await output.toFile(outputPath);
     return outputPath;
   }
