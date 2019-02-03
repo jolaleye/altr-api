@@ -58,12 +58,18 @@ router.post('/upload', async ctx => {
   }
 
   // process file and respond with output
-  const outputPath = await file.process();
-  await send(ctx, `uploads/${path.basename(outputPath)}`);
+  try {
+    const outputPath = await file.process();
+    await send(ctx, `uploads/${path.basename(outputPath)}`);
+    // remove the output after sending it to the client
+    fs.remove(outputPath);
+  } catch (err) {
+    ctx.response.satus = 500;
+    ctx.response.message = 'Something went wrong :(';
+  }
 
-  // remove the original and output files
+  // remove the original
   fs.remove(upload.path);
-  fs.remove(outputPath);
 });
 
 app.use(router.routes());
