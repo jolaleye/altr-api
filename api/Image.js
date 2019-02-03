@@ -1,6 +1,8 @@
 const path = require('path');
 const sharp = require('sharp');
 const shortid = require('shortid');
+const { exec } = require('child_process');
+const { promisify } = require('util');
 
 const _ = require('./config.json');
 
@@ -22,14 +24,22 @@ class Image {
       output.jpeg({
         quality: parseInt(this.options.quality) || 90 // adjust quality (default 90)
       });
+
+      await output.toFile(outputPath);
+      return outputPath;
     }
 
     if (outputFormat === 'png') {
       output.png({ adaptiveFiltering: true });
-    }
+      await output.toFile(outputPath);
 
-    await output.toFile(outputPath);
-    return outputPath;
+      // compress output
+      if (this.options.compression) {
+        await promisify(exec)(`optipng -o${this.options.compression} ${outputPath}`);
+      }
+
+      return outputPath;
+    }
   }
 
   validate() {
@@ -43,6 +53,9 @@ class Image {
     }
     if (this.options.quality && (this.options.quality < 1 || this.options.quality > 100)) {
       errors.push('Quality must be 1-100');
+    }
+    if (this.options.compression && (this.options.compression < 0 || this.options.compression > 7)) {
+      errors.push('Compression level must be 0-7');
     }
 
     return errors;
