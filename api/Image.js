@@ -15,13 +15,17 @@ class Image {
     const outputPath = path.join(path.dirname(this.file.path), `${shortid.generate()}.${outputFormat}`);
     const output = sharp(this.file.path);
 
-    // convert format
-    if (this.options.format) output.toFormat(this.options.format);
     // resize
     output.resize(parseInt(this.options.width), parseInt(this.options.height), { fit: 'fill' });
-    // adjust quality (jpg)
-    if ((outputFormat === 'jpg' || outputFormat === 'jpeg') && this.options.quality) {
-      output.jpeg({ quality: parseInt(this.options.quality) });
+
+    if (outputFormat === 'jpeg' || outputFormat === 'jpg') {
+      output.jpeg({
+        quality: parseInt(this.options.quality) || 90 // adjust quality (default 90)
+      });
+    }
+
+    if (outputFormat === 'png') {
+      output.png({ adaptiveFiltering: true });
     }
 
     await output.toFile(outputPath);
