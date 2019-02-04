@@ -7,6 +7,10 @@
     "video": {
       "in": ["mp4", "mov"],
       "out": ["mp4", "mov"]
+    },
+    "audio": {
+      "in": ["wav", "mp3"],
+      "out": ["wav", "mp3"]
     }
   }
 }
