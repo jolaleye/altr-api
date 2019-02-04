@@ -6,7 +6,7 @@
 
 ### Image
 
-- `format`: output format, possible values: jpeg, jpg, png
+- `format`: output format, possible values: jpeg/jpg, png, tiff/tif
 - `width`: output width
 - `height`: output height
 - `quality`: JPG quality, possible values: 1-100
