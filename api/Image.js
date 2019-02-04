@@ -18,7 +18,9 @@ class Image {
     const output = sharp(this.file.path);
 
     // resize
-    output.resize(parseInt(this.options.width), parseInt(this.options.height), { fit: 'fill' });
+    if (this.options.width && this.options.height) {
+      output.resize(parseInt(this.options.width), parseInt(this.options.height), { fit: 'fill' });
+    }
 
     if (outputFormat === 'jpeg' || outputFormat === 'jpg') {
       output.jpeg({
@@ -47,9 +49,6 @@ class Image {
 
     if (this.options.format && !_.formats.image.out.includes(this.options.format)) {
       errors.push('Invalid output format');
-    }
-    if (!this.options.width || !this.options.height) {
-      errors.push('Missing image dimensions');
     }
     if (this.options.quality && (this.options.quality < 1 || this.options.quality > 100)) {
       errors.push('Quality must be 1-100');
