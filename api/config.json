@@ -1,8 +1,8 @@
 {
   "formats": {
     "image": {
-      "in": ["jpeg", "jpg", "png"],
-      "out": ["jpeg", "jpg", "png"]
+      "in": ["jpeg", "jpg", "png", "tiff", "tif"],
+      "out": ["jpeg", "jpg", "png", "tiff", "tif"]
     },
     "video": {
       "in": ["mp4", "mov"],

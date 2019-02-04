@@ -28,7 +28,14 @@ class Image {
       });
 
       await output.toFile(outputPath);
-      return outputPath;
+    }
+
+    if (outputFormat === 'tiff' || outputFormat === 'tif') {
+      output.tiff({
+        quality: parseInt(this.options.quality) || 90 // adjust quality (default 90)
+      });
+
+      await output.toFile(outputPath);
     }
 
     if (outputFormat === 'png') {
@@ -39,9 +46,9 @@ class Image {
       if (this.options.compression) {
         await promisify(exec)(`optipng -o${this.options.compression} ${outputPath}`);
       }
-
-      return outputPath;
     }
+
+    return outputPath;
   }
 
   validate() {
