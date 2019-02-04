@@ -9,6 +9,7 @@ const send = require('koa-send');
 const _ = require('./config.json');
 const Image = require('./Image');
 const Video = require('./Video');
+const Audio = require('./Audio');
 
 const app = new Koa();
 const router = new Router();
@@ -41,6 +42,7 @@ router.post('/upload', async ctx => {
   // validate upload format
   if (_.formats.image.in.includes(extension)) file = new Image(upload, options);
   else if (_.formats.video.in.includes(extension)) file = new Video(upload, options);
+  else if (_.formats.audio.in.includes(extension)) file = new Audio(upload, options);
   else {
     ctx.response.status = 422;
     ctx.response.message = 'Invalid input format';
