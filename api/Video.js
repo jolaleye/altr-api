@@ -15,13 +15,18 @@ class Video {
     const outputFormat = this.options.format || path.extname(this.file.name).slice(1);
     const outputPath = path.join(path.dirname(this.file.path), `${shortid.generate()}.${outputFormat}`);
 
-    let ffmpegOptions = '';
+    let inputOpts = '';
+    let outputOpts = '';
 
     if (this.options.width && this.options.height) {
-      ffmpegOptions += `-s ${this.options.width}x${this.options.height} `;
+      outputOpts += `-s ${this.options.width}x${this.options.height} `;
+    }
+    if (this.options.start && this.options.end) {
+      inputOpts += `-ss ${this.options.start}`;
+      outputOpts += `-t ${this.options.end - this.options.start}`;
     }
 
-    await promisify(exec)(`ffmpeg -i ${this.file.path} ${ffmpegOptions} ${outputPath}`);
+    await promisify(exec)(`ffmpeg ${inputOpts} -i ${this.file.path} ${outputOpts} ${outputPath}`);
 
     return outputPath;
   }
