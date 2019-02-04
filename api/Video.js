@@ -15,7 +15,13 @@ class Video {
     const outputFormat = this.options.format || path.extname(this.file.name).slice(1);
     const outputPath = path.join(path.dirname(this.file.path), `${shortid.generate()}.${outputFormat}`);
 
-    await promisify(exec)(`ffmpeg -i ${this.file.path} ${outputPath}`);
+    let ffmpegOptions = '';
+
+    if (this.options.width && this.options.height) {
+      ffmpegOptions += `-s ${this.options.width}x${this.options.height} `;
+    }
+
+    await promisify(exec)(`ffmpeg -i ${this.file.path} ${ffmpegOptions} ${outputPath}`);
 
     return outputPath;
   }
