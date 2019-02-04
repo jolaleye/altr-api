@@ -38,6 +38,14 @@ class Image {
       await output.toFile(outputPath);
     }
 
+    if (outputFormat === 'webp') {
+      output.webp({
+        quality: parseInt(this.options.quality) || 90 // adjust quality (default 90)
+      });
+
+      await output.toFile(outputPath);
+    }
+
     if (outputFormat === 'png') {
       output.png({ adaptiveFiltering: true });
       await output.toFile(outputPath);
