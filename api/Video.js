@@ -34,10 +34,6 @@ class Video {
   validate() {
     const errors = [];
 
-    if (this.options.format && !_.formats.video.out.includes(this.options.format)) {
-      errors.push('Invalid output format');
-    }
-
     return errors;
   }
 }

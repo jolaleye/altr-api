@@ -31,10 +31,6 @@ class Audio {
   validate() {
     const errors = [];
 
-    if (this.options.format && !_.formats.audio.out.includes(this.options.format)) {
-      errors.push('Invalid output format');
-    }
-
     return errors;
   }
 }

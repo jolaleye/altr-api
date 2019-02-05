@@ -43,16 +43,20 @@ router.post('/upload', async ctx => {
 
   const upload = ctx.request.files.file;
   const options = ctx.request.body;
-  const extension = path.extname(upload.name).slice(1);
-  let file;
+  const fromExt = path.extname(upload.name).slice(1);
+  const toExt = options.format || fromExt;
 
-  // validate upload format
-  if (_.formats.image.in.includes(extension)) file = new Image(upload, options);
-  else if (_.formats.video.in.includes(extension)) file = new Video(upload, options);
-  else if (_.formats.audio.in.includes(extension)) file = new Audio(upload, options);
-  else {
+  let file;
+  // validate formats
+  if (_.formats.image.in.includes(fromExt) && _.formats.image.out.includes(toExt)) {
+    file = new Image(upload, options);
+  } else if (_.formats.video.in.includes(fromExt) && _.formats.video.out.includes(toExt)) {
+    file = new Video(upload, options);
+  } else if (_.formats.audio.in.includes(fromExt) && _.formats.audio.out.includes(toExt)) {
+    file = new Audio(upload, options);
+  } else {
     ctx.response.status = 422;
-    ctx.response.message = 'Invalid input format';
+    ctx.response.message = 'Invalid format';
     fs.remove(upload.path);
     return;
   }
