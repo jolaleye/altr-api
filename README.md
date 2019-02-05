@@ -14,7 +14,7 @@
 
 ### Video
 
-- `format`: output format, possible values: mp4, mov, wmv, avi, mkv
+- `format`: output format, possible values: mp4, mov, wmv, avi, mkv, webm
 - `width`: output width
 - `height`: output height
 - `start`: trim start (seconds)
@@ -22,6 +22,6 @@
 
 ### Audio
 
-- `format`: output format, possible values: mp3, wav, wma
+- `format`: output format, possible values: mp3, wav, wma, webm
 - `start`: trim start (seconds)
 - `end`: trim end (seconds)

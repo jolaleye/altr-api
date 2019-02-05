@@ -5,12 +5,12 @@
       "out": ["jpeg", "jpg", "png", "tiff", "tif", "webp"]
     },
     "video": {
-      "in": ["mp4", "mov", "wmv", "avi", "mkv"],
-      "out": ["mp4", "mov", "wmv", "avi", "mkv"]
+      "in": ["mp4", "mov", "wmv", "avi", "mkv", "webm"],
+      "out": ["mp4", "mov", "wmv", "avi", "mkv", "webm"]
     },
     "audio": {
-      "in": ["wav", "mp3", "wma"],
-      "out": ["wav", "mp3", "wma"]
+      "in": ["wav", "mp3", "wma", "webm"],
+      "out": ["wav", "mp3", "wma", "webm"]
     }
   }
 }
