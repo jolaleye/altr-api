@@ -14,7 +14,7 @@
 
 ### Video
 
-- `format`: output format, possible values: mp4, mov
+- `format`: output format, possible values: mp4, mov, wmv
 - `width`: output width
 - `height`: output height
 - `start`: trim start (seconds)
