@@ -25,29 +25,38 @@ class Image {
     switch (outputFormat) {
       case 'jpeg':
       case 'jpg':
-        await this.toJPG(img, {
-          quality: parseInt(this.options.quality)
-        }).toFile(outputPath);
+        await img
+          .jpeg({
+            quality: this.options.quality || 90
+          })
+          .toFile(outputPath);
         break;
 
       case 'tiff':
       case 'tif':
-        await this.toTIFF(img, {
-          quality: parseInt(this.options.quality)
-        }).toFile(outputPath);
+        await img
+          .tiff({
+            quality: this.options.quality || 90
+          })
+          .toFile(outputPath);
         break;
 
       case 'webp':
-        await this.toWEBP(img, {
-          quality: parseInt(this.options.quality)
-        }).toFile(outputPath);
+        await img
+          .webp({
+            quality: this.options.quality || 90
+          })
+          .toFile(outputPath);
         break;
 
       case 'png':
-        await this.toPNG(img, {}).toFile(outputPath);
-        if (this.options.compression) {
-          await promisify(exec)(`optipng -o${this.options.compression} ${outputPath}`);
-        }
+        await img
+          .png({
+            adaptiveFiltering: true
+          })
+          .toFile(outputPath);
+        // OptiPNG compression
+        if (this.options.compression) await promisify(exec)(`optipng -o${this.options.compression} ${outputPath}`);
         break;
 
       default:
@@ -55,22 +64,6 @@ class Image {
     }
 
     return outputPath;
-  }
-
-  toJPG(img, { quality = 90 }) {
-    return img.jpeg({ quality });
-  }
-
-  toTIFF(img, { quality = 90 }) {
-    return img.tiff({ quality });
-  }
-
-  toWEBP(img, { quality = 90 }) {
-    return img.webp({ quality });
-  }
-
-  toPNG(img, {}) {
-    return img.png({ adaptiveFiltering: true });
   }
 
   validate() {
