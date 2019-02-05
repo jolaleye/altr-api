@@ -22,6 +22,6 @@
 
 ### Audio
 
-- `format`: output format, possible values: mp3, wav, wma, webm
+- `format`: output format, possible values: mp3, wav, wma, avi, webm
 - `start`: trim start (seconds)
 - `end`: trim end (seconds)
