@@ -5,8 +5,8 @@
       "out": ["jpeg", "jpg", "png", "tiff", "tif", "webp"]
     },
     "video": {
-      "in": ["mp4", "mov", "wmv", "avi"],
-      "out": ["mp4", "mov", "wmv", "avi"]
+      "in": ["mp4", "mov", "wmv", "avi", "mkv"],
+      "out": ["mp4", "mov", "wmv", "avi", "mkv"]
     },
     "audio": {
       "in": ["wav", "mp3"],
