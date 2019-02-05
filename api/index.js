@@ -34,6 +34,13 @@ app.use(
 );
 
 router.post('/upload', async ctx => {
+  // check that a file was sent under the correct name
+  if (!ctx.request.files.file) {
+    ctx.response.status = 400;
+    ctx.response.message = 'Please provide a file under the name "file"';
+    return;
+  }
+
   const upload = ctx.request.files.file;
   const options = ctx.request.body;
   const extension = path.extname(upload.name).slice(1);
