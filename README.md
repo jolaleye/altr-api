@@ -6,10 +6,10 @@
 
 ### Image
 
-- `format`: output format, possible values: jpeg/jpg, png, tiff/tif
+- `format`: output format, possible values: jpeg/jpg, png, tiff/tif, webp
 - `width`: output width
 - `height`: output height
-- `quality`: JPG quality, possible values: 1-100
+- `quality`: applies to jpg, tiff, and webp, possible values: 1-100
 - `compression`: OptiPNG compression level, possible values: 0-7
 
 ### Video
