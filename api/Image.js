@@ -15,48 +15,62 @@ class Image {
   async process() {
     const outputFormat = this.options.format || path.extname(this.file.name).slice(1);
     const outputPath = path.join(path.dirname(this.file.path), `${shortid.generate()}.${outputFormat}`);
-    const output = sharp(this.file.path);
+    const img = sharp(this.file.path);
 
     // resize
     if (this.options.width && this.options.height) {
-      output.resize(parseInt(this.options.width), parseInt(this.options.height), { fit: 'fill' });
+      img.resize(parseInt(this.options.width), parseInt(this.options.height), { fit: 'fill' });
     }
 
-    if (outputFormat === 'jpeg' || outputFormat === 'jpg') {
-      output.jpeg({
-        quality: parseInt(this.options.quality) || 90 // adjust quality (default 90)
-      });
+    switch (outputFormat) {
+      case 'jpeg':
+      case 'jpg':
+        await this.toJPG(img, {
+          quality: parseInt(this.options.quality)
+        }).toFile(outputPath);
+        break;
 
-      await output.toFile(outputPath);
-    }
+      case 'tiff':
+      case 'tif':
+        await this.toTIFF(img, {
+          quality: parseInt(this.options.quality)
+        }).toFile(outputPath);
+        break;
 
-    if (outputFormat === 'tiff' || outputFormat === 'tif') {
-      output.tiff({
-        quality: parseInt(this.options.quality) || 90 // adjust quality (default 90)
-      });
+      case 'webp':
+        await this.toWEBP(img, {
+          quality: parseInt(this.options.quality)
+        }).toFile(outputPath);
+        break;
 
-      await output.toFile(outputPath);
-    }
+      case 'png':
+        await this.toPNG(img, {}).toFile(outputPath);
+        if (this.options.compression) {
+          await promisify(exec)(`optipng -o${this.options.compression} ${outputPath}`);
+        }
+        break;
 
-    if (outputFormat === 'webp') {
-      output.webp({
-        quality: parseInt(this.options.quality) || 90 // adjust quality (default 90)
-      });
-
-      await output.toFile(outputPath);
-    }
-
-    if (outputFormat === 'png') {
-      output.png({ adaptiveFiltering: true });
-      await output.toFile(outputPath);
-
-      // compress output
-      if (this.options.compression) {
-        await promisify(exec)(`optipng -o${this.options.compression} ${outputPath}`);
-      }
+      default:
+        throw new Error('Invalid format');
     }
 
     return outputPath;
+  }
+
+  toJPG(img, { quality = 90 }) {
+    return img.jpeg({ quality });
+  }
+
+  toTIFF(img, { quality = 90 }) {
+    return img.tiff({ quality });
+  }
+
+  toWEBP(img, { quality = 90 }) {
+    return img.webp({ quality });
+  }
+
+  toPNG(img, {}) {
+    return img.png({ adaptiveFiltering: true });
   }
 
   validate() {
