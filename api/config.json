@@ -9,8 +9,8 @@
       "out": ["mp4", "mov", "wmv", "avi", "mkv"]
     },
     "audio": {
-      "in": ["wav", "mp3"],
-      "out": ["wav", "mp3"]
+      "in": ["wav", "mp3", "wma"],
+      "out": ["wav", "mp3", "wma"]
     }
   }
 }
