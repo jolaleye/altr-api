@@ -1,16 +1,16 @@
 {
   "formats": {
     "image": {
-      "in": ["jpeg", "jpg", "png", "tiff", "tif", "webp"],
-      "out": ["jpeg", "jpg", "png", "tiff", "tif", "webp"]
+      "i": ["jpeg", "jpg", "png", "tiff", "tif", "webp"],
+      "o": ["jpeg", "jpg", "png", "tiff", "tif", "webp"]
     },
     "video": {
-      "in": ["mp4", "mov", "wmv", "avi", "mkv", "webm"],
-      "out": ["mp4", "mov", "wmv", "avi", "mkv", "webm"]
+      "i": ["mp4", "mov", "wmv", "avi", "mkv", "webm"],
+      "o": ["mp4", "mov", "wmv", "avi", "mkv", "webm"]
     },
     "audio": {
-      "in": ["wav", "mp3", "wma", "avi", "webm"],
-      "out": ["wav", "mp3", "wma", "avi", "webm"]
+      "i": ["wav", "mp3", "wma", "avi", "webm"],
+      "o": ["wav", "mp3", "wma", "avi", "webm"]
     }
   }
 }
