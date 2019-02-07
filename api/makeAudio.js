@@ -10,10 +10,8 @@ const makeAudio = async (file, options) => {
   let inputOpts = ``;
   let outputOpts = ``;
 
-  if (options.start && options.end) {
-    inputOpts += `-ss ${options.start}`;
-    outputOpts += `-t ${options.end - options.start}`;
-  }
+  if (options.start) inputOpts += `-ss ${options.start}`;
+  if (options.end) outputOpts += `-t ${options.end - (options.start || 0)}`;
 
   await promisify(exec)(`ffmpeg ${inputOpts} -i ${file.path} ${outputOpts} ${toPath}`);
   return toPath;

@@ -40,14 +40,14 @@ app.use(async (ctx, next) => {
   } catch (err) {
     ctx.response.status = err.status || 500;
     ctx.response.body = err.message;
-    fs.remove(ctx.state.file.path);
+    if (ctx.state.file) fs.remove(ctx.state.file.path);
   }
 });
 
 // validate POST data
 const validate = async (ctx, next) => {
   // check for a file
-  if (ctx.request.files.file) ctx.state.file = ctx.request.files.file;
+  if (ctx.request.files && ctx.request.files.file) ctx.state.file = ctx.request.files.file;
   else ctx.throw(400, 'Please provide a file with the key "file"');
 
   ctx.state.options = ctx.request.body;
@@ -69,8 +69,8 @@ const validate = async (ctx, next) => {
   if (options.quality && (options.quality < 1 || options.quality > 100)) errs.push('Invalid quality, must be 1-100');
   if (options.compression && (options.compression < 0 || options.compression > 7))
     errs.push('Invalid compression, must be 0-7');
-  if (options.start && options.start < 0) errs.push('Invalid start time, must be > 0');
-  if (options.end && options.end < 0) errs.push('Invalid end time, must be > 0');
+  if (options.start && options.start < 0) errs.push('Invalid start time, must be ≥ 0');
+  if (options.end && options.end < 0) errs.push('Invalid end time, must be ≥ 0');
 
   if (errs.length) ctx.throw(422, errs.join('\n'));
 

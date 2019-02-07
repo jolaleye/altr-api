@@ -12,8 +12,8 @@ const makeImage = async (file, options) => {
   // resize
   if (options.width && options.height) {
     image.resize({
-      width: options.width,
-      height: options.height,
+      width: Number(options.width),
+      height: Number(options.height),
       fit: 'fill'
     });
   }
@@ -21,7 +21,7 @@ const makeImage = async (file, options) => {
   // JPG
   if (toFormat === 'jpeg' || toFormat === 'jpg') {
     image.jpeg({
-      quality: options.quality || 90
+      quality: Number(options.quality) || 90
     });
     await image.toFile(toPath);
   }

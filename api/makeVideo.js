@@ -11,11 +11,8 @@ const makeVideo = async (file, options) => {
   let outputOpts = ``;
 
   if (options.width && options.height) outputOpts += `-s ${options.width}x${options.height} `;
-
-  if (options.start && options.end) {
-    inputOpts += `-ss ${options.start}`;
-    outputOpts += `-t ${options.end - options.start}`;
-  }
+  if (options.start) inputOpts += `-ss ${options.start}`;
+  if (options.end) outputOpts += `-t ${options.end - (options.start || 0)}`;
 
   await promisify(exec)(`ffmpeg ${inputOpts} -i ${file.path} ${outputOpts} ${toPath}`);
   return toPath;
