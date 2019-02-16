@@ -8,6 +8,7 @@
     "start:pm2": "pm2 start ecosystem.config.js"
   },
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "fs-extra": "^7.0.1",
     "koa": "^2.7.0",
     "koa-body": "^4.0.7",
