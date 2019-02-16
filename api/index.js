@@ -6,6 +6,7 @@ const fs = require('fs-extra');
 const shortid = require('shortid');
 const send = require('koa-send');
 const request = require('request');
+const cors = require('@koa/cors');
 
 const { formats } = require('./config.json');
 const makeImage = require('./makeImage');
@@ -14,6 +15,16 @@ const makeAudio = require('./makeAudio');
 
 const app = new Koa();
 const router = new Router();
+
+const allowedOrigins = ['http://localhost:8080', 'https://altr.api'];
+const corsOpts = {
+  origin: ctx => {
+    const { origin } = ctx.request.headers;
+    if (!allowedOrigins.includes(origin)) return false;
+    return origin;
+  }
+};
+app.use(cors(corsOpts));
 
 // ensure the upload directory exists
 const uploadDir = path.resolve('uploads');
