@@ -58,7 +58,9 @@ app.use(async (ctx, next) => {
 
 // proxy file requests for clients
 router.post('/fetch', async ctx => {
-  ctx.response.body = request(ctx.request.body.url);
+  ctx.response.body = request(ctx.request.body.url, err => {
+    if (err) ctx.throw(502, 'Failed to fetch content');
+  });
 });
 
 // validate upload data
