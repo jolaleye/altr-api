@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const shortid = require('shortid');
 const send = require('koa-send');
+const request = require('request');
 
 const { formats } = require('./config.json');
 const makeImage = require('./makeImage');
@@ -44,7 +45,12 @@ app.use(async (ctx, next) => {
   }
 });
 
-// validate POST data
+// proxy file requests for clients
+router.post('/fetch', async ctx => {
+  ctx.response.body = request(ctx.request.body.url);
+});
+
+// validate upload data
 const validate = async (ctx, next) => {
   // check for a file
   if (ctx.request.files && ctx.request.files.file) ctx.state.file = ctx.request.files.file;
