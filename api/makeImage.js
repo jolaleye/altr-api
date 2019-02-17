@@ -40,7 +40,7 @@ const makeImage = async (file, options) => {
   // TIFF
   if (toFormat === 'tiff' || toFormat === 'tif') {
     image.tiff({
-      quality: options.quality || 90
+      quality: Number(options.quality) || 90
     });
     await image.toFile(toPath);
   }
@@ -48,7 +48,7 @@ const makeImage = async (file, options) => {
   // WEBP
   if (toFormat === 'webp') {
     image.webp({
-      quality: options.quality || 90
+      quality: Number(options.quality) || 90
     });
     await image.toFile(toPath);
   }
