@@ -83,13 +83,12 @@ const validate = async (ctx, next) => {
   const { options } = ctx.state;
   const errs = [];
 
-  if (options.width && options.width < 1) errs.push('Invalid width, must be > 1');
-  if (options.height && options.height < 1) errs.push('Invalid height, must be > 1');
-  if (options.quality && (options.quality < 1 || options.quality > 100)) errs.push('Invalid quality, must be 1-100');
-  if (options.compression && (options.compression < 0 || options.compression > 7))
-    errs.push('Invalid compression, must be 0-7');
-  if (options.start && options.start < 0) errs.push('Invalid start time, must be ≥ 0');
-  if (options.end && options.end < 0) errs.push('Invalid end time, must be ≥ 0');
+  if (options.width && options.width < 1) errs.push('Width must be greater than 1.');
+  if (options.height && options.height < 1) errs.push('Height must be greater than 1.');
+  if (options.quality && (options.quality < 1 || options.quality > 100)) errs.push('Quality must be 1-100.');
+  if (options.compression && (options.compression < 0 || options.compression > 7)) errs.push('Compression must be 0-7');
+  if (options.start && options.start < 0) errs.push('Start time must be at least 0');
+  if (options.end && options.end < 0) errs.push('End time must be at least 0');
 
   if (errs.length) ctx.throw(422, errs.join('\n'));
 
@@ -111,7 +110,7 @@ router.post('/upload', validate, async ctx => {
     fs.remove(outputPath);
   } catch (err) {
     ctx.response.status = 500;
-    ctx.response.body = 'Something went wrong :(';
+    ctx.response.body = 'Something went wrong.';
   }
 
   // remove the original when we're done
