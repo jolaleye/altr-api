@@ -56,6 +56,10 @@ app.use(async (ctx, next) => {
   }
 });
 
+router.get('/', async ctx => {
+  ctx.response.body = 'Welcome to the Altr API!';
+});
+
 // proxy file requests for clients
 router.post('/fetch', async ctx => {
   ctx.response.body = request(ctx.request.body.url, err => {
