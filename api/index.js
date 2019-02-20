@@ -16,7 +16,7 @@ const makeAudio = require('./makeAudio');
 const app = new Koa();
 const router = new Router();
 
-const allowedOrigins = ['http://localhost:8080', 'https://altr.api'];
+const allowedOrigins = ['https://altr.api'];
 const corsOpts = {
   origin: ctx => {
     const { origin } = ctx.request.headers;
