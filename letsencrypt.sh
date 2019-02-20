@@ -36,7 +36,7 @@ echo
 
 # start nginx container
 echo "### Starting nginx ..."
-docker-compose up --force-recreate -d nginx
+docker-compose up --force-recreate -d api nginx
 echo
 
 # remove the dummy certificates
