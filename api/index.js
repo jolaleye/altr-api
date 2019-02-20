@@ -16,15 +16,8 @@ const makeAudio = require('./makeAudio');
 const app = new Koa();
 const router = new Router();
 
-const allowedOrigins = ['https://altr.app'];
-const corsOpts = {
-  origin: ctx => {
-    const { origin } = ctx.request.headers;
-    if (!allowedOrigins.includes(origin)) return false;
-    return origin;
-  }
-};
-app.use(cors(corsOpts));
+const allowedOrigin = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'https://altr.app';
+app.use(cors({ origin: allowedOrigin }));
 
 // ensure the upload directory exists
 const uploadDir = path.resolve('uploads');
