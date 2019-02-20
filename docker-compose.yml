@@ -7,17 +7,17 @@ services:
   nginx:
     build: ./server
     restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-    ports:
-      - '80:80' # host:80 -> nginx:80 -> api:3000
-      - '443:443' # (TLS) host:443 -> nginx:443 -> api:3000
-    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"''' # reload in case of new certificates
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
   certbot:
     image: certbot/certbot
-    volumes:
+    volume:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'" # check certificate renewal
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
