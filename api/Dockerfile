@@ -25,4 +25,4 @@ RUN npm install -g pm2
 
 # start the node app
 EXPOSE 3000
-CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]

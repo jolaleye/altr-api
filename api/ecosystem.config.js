@@ -3,7 +3,10 @@ module.exports = {
     {
       name: 'altr',
       script: './index.js',
-      instances: 'max'
+      instances: 'max',
+      env_production: {
+        NODE_ENV: 'production'
+      }
     }
   ]
 };
