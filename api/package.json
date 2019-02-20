@@ -4,8 +4,8 @@
   "author": "Jonathan Olaleye",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon index.js",
-    "start:pm2": "pm2 start ecosystem.config.js"
+    "start": "cross-env NODE_ENV=development nodemon index.js",
+    "start:pm2": "pm2 start ecosystem.config.js --env production"
   },
   "dependencies": {
     "@koa/cors": "^2.2.3",
@@ -17,5 +17,8 @@
     "request": "^2.88.0",
     "sharp": "^0.21.3",
     "shortid": "^2.2.14"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
   }
 }
