@@ -7,6 +7,7 @@ const shortid = require('shortid');
 const send = require('koa-send');
 const cors = require('@koa/cors');
 const request = require('request');
+const ytdl = require('ytdl-core');
 
 const { formats } = require('./config.json');
 const makeImage = require('./makeImage');
@@ -58,7 +59,13 @@ router.get('/fetch', async ctx => {
   const { url } = ctx.request.query;
   if (!url) ctx.throw(400, 'Please provide a URL query parameter');
 
-  ctx.response.body = request(url);
+  // YouTube url
+  if (ytdl.validateURL(url)) {
+    const { formats } = await ytdl.getInfo(url);
+    ctx.response.body = request(formats[0].url);
+  }
+  // no specific url type
+  else ctx.response.body = request(url);
 });
 
 // validate upload data
