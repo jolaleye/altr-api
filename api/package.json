@@ -16,7 +16,8 @@
     "koa-send": "^5.0.0",
     "request": "^2.88.0",
     "sharp": "^0.21.3",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "ytdl-core": "^0.29.1"
   },
   "devDependencies": {
     "cross-env": "^5.2.0"
