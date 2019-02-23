@@ -6,6 +6,7 @@ const fs = require('fs-extra');
 const shortid = require('shortid');
 const send = require('koa-send');
 const cors = require('@koa/cors');
+const request = require('request');
 
 const { formats } = require('./config.json');
 const makeImage = require('./makeImage');
@@ -50,6 +51,14 @@ app.use(async (ctx, next) => {
 
 router.get('/', async ctx => {
   ctx.response.body = 'Welcome to the Altr API!';
+});
+
+// proxy media requests
+router.get('/fetch', async ctx => {
+  const { url } = ctx.request.query;
+  if (!url) ctx.throw(400, 'Please provide a URL query parameter');
+
+  ctx.response.body = request(url);
 });
 
 // validate upload data
