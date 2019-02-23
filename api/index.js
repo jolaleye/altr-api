@@ -5,7 +5,6 @@ const path = require('path');
 const fs = require('fs-extra');
 const shortid = require('shortid');
 const send = require('koa-send');
-const request = require('request');
 const cors = require('@koa/cors');
 
 const { formats } = require('./config.json');
@@ -51,13 +50,6 @@ app.use(async (ctx, next) => {
 
 router.get('/', async ctx => {
   ctx.response.body = 'Welcome to the Altr API!';
-});
-
-// proxy file requests for clients
-router.post('/fetch', async ctx => {
-  ctx.response.body = request(ctx.request.body.url, err => {
-    if (err) ctx.throw(502, 'Failed to fetch content');
-  });
 });
 
 // validate upload data
