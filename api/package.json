@@ -2,7 +2,7 @@
   "private": true,
   "name": "altr-api",
   "author": "Jonathan Olaleye",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon index.js",
     "start:pm2": "pm2 start ecosystem.config.js --env production"
