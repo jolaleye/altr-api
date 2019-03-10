@@ -1,27 +1,37 @@
-# Altr.app API
+# Altr API
 
-`POST` to `https://api.altr.app/upload` with `multipart/form-data` containing a file and options. The API will respond with the file altered according to the supplied options.
+## GET `/fetch?url=`
 
-## Options
+Proxy requests for media URLs. URLs may point directly to an image, video, or audio file, or to a YouTube video. Streams the result to the client.
+
+## POST `/upload`
+
+Post `multipart/form-data` with an image, video, or audio file under the key `file` and various options. Responds with the altered file.
 
 ### Image
 
-- `format`: output format, possible values: jpeg/jpg, png, tiff/tif, webp
+**Supported formats:** jpg, png, tiff, webp
+
+- `format`: output format
 - `width`: output width
 - `height`: output height
-- `quality`: applies to jpg, tiff, and webp, possible values: 1-100
-- `compression`: OptiPNG compression level, possible values: 0-7
+- `quality`: quality 1-100, applies to jpg, webp, and tiff
+- `compression`: OptiPNG compression level (0-7), applies to png
 
 ### Video
 
-- `format`: output format, possible values: mp4, mov, wmv, avi, mkv, webm
+**Supported formats:** mp4, mov, wmv, avi, mkv, webm
+
+- `format`: output format
 - `width`: output width
 - `height`: output height
-- `start`: trim start (seconds)
-- `end`: trim end (seconds)
+- `start`: start time (s)
+- `end`: end time (s)
 
 ### Audio
 
-- `format`: output format, possible values: mp3, wav, wma, avi, webm
-- `start`: trim start (seconds)
-- `end`: trim end (seconds)
+**Supported formats:** mp3, wav, wma, avi, webm
+
+- `format`: output format
+- `start`: start time (s)
+- `end`: end time (s)
